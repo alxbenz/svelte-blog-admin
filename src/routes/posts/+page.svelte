@@ -17,7 +17,7 @@
 	</div>
 	<ul>
 		{#each data.posts as post}
-			<li class="my-2 border-b-2 bg-gray-100 p-4 text-sm hover:border-b-gray-300 hover:bg-white">
+			<li class="my-2 border-b-2 bg-gray-100 p-4 text-sm hover:border-b-gray-300 hover:bg-white transition-all">
 				<span class="mx-2 inline-block w-1/6">
 					/{post.slug}
 				</span>

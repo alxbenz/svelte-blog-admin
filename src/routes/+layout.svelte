@@ -17,8 +17,10 @@
 
 	<main class="w-full">
 		<TopNavigation class="h-20 w-full" />
-		<div class="h-[calc(100%-8em)] w-full overflow-auto p-8 bg-gray-50">
-			<slot />
+		<div class="h-[calc(100%-8em)] w-full overflow-auto p-6 bg-gray-100">
+			<div class="p-6 bg-white w-full h-full overflow-auto">
+				<slot />
+			</div>
 		</div>
 		<Footer class="h-12 w-full" />
 	</main> 
