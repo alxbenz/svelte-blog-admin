@@ -1,8 +1,6 @@
 import { API } from "../config";
 import type { Post } from "../types";
 
-
-
 /** @type {import('./$types').PageLoad} */
 export async function load() {
 	const response = await fetch(`${API.POSTS}`);
