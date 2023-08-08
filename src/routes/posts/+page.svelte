@@ -1,9 +1,21 @@
 <script lang="ts">
-	import type { Post } from '../../types';
+	import { deletePost } from '$lib/deletePost';
+	import type { PostResponse } from '../../types';
 
 	/** @type {import('./$types').PageData} */
 	export let data: {
-		posts: Post[];
+		posts: PostResponse[];
+	};
+
+	const handleDelete = async (id: string) => {
+		try {
+			if (window.confirm('Are you sure you want to delete this post?')) {
+				await deletePost(id);
+				location.reload();
+			}
+		} catch (e) {
+			console.error(e);
+		}
 	};
 </script>
 
@@ -19,9 +31,8 @@
 	</div>
 	<ul>
 		{#each data.posts as post}
-			<a
+			<li
 				class="my-2 flex items-center border-b-2 bg-gray-100 p-4 text-sm transition-all hover:border-b-gray-300 hover:bg-white"
-				href={`/posts/${post._id}`}
 			>
 				<span class="mx-2 inline-flex w-6 flex-shrink-0 items-center">
 					<span
@@ -32,7 +43,7 @@
 					/>
 				</span>
 				<span class="mx-2 inline-block w-1/6">
-					/{post.slug}
+					<a class="underline hover:no-underline text-cyan-800" href={`/posts/${post._id}`}>/{post.slug} </a>
 				</span>
 				<span class="mx-2 inline-block w-1/6">
 					{post.title}
@@ -50,8 +61,21 @@
 					{new Date(post.updatedAt).toLocaleDateString()}
 				</span>
 
-				<span class="mx-2 inline-block w-1/6" />
-			</a>
+				<span class="mx-2 inline-block w-1/6">
+					<a
+						href={`/posts/${post._id}`}
+						class="mr-2 rounded-md bg-cyan-300 px-2 py-1 text-xs hover:bg-cyan-400 hover:shadow-md"
+						>edit</a
+					>
+					<button
+						class="mr-2 rounded-md bg-red-300 px-2 py-1 text-xs hover:bg-red-400 hover:shadow-md"
+						on:click={(e) => {
+							e.preventDefault();
+							handleDelete(post._id);
+						}}>delete</button
+					>
+				</span>
+			</li>
 		{/each}
 	</ul>
 </div>
